@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Background</title>
+    <style>
+        body {
+            background-color: rgb(0, 0, 0);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: white;
+        }
+        .stApp > header {
+            height: 100vh;
+            background-color: transparent;
+        }
+        .stApp {
+            overflow: hidden;
+            background-color: #99eeff;
+            background-image: 
+                radial-gradient(at 29% 74%, hsla(257, 85%, 0%, 1) 0px, transparent 50%),
+                radial-gradient(at 31% 83%, hsla(148, 87%, 0%, 1) 0px, transparent 50%),
+                radial-gradient(at 77% 7%, hsla(297, 69%, 0%, 1) 0px, transparent 50%),
+                radial-gradient(at 19% 18%, hsla(261, 77%, 0%, 1) 0px, transparent 50%),
+                radial-gradient(at 70% 36%, hsla(10, 87%, 0%, 1) 0px, transparent 50%),
+                radial-gradient(at 5% 0%, hsla(85, 72%, 0%, 1) 0px, transparent 50%),
+                radial-gradient(at 59% 57%, hsla(191, 76%, 0%, 1) 0px, transparent 50%);
+            background-size: 150% 150%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: my_animation 20s ease infinite;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            background: rgba(47, 47, 47, 0.33);
+            box-shadow: 0 8px 32px 0 rgba(183, 183, 183, 0.118);
+            backdrop-filter: blur(8.5px);
+            -webkit-backdrop-filter: blur(8.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 40px;
+            gap: 30px;
+            width: 350px;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            background-color: transparent;
+            color: white;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .container {
+            padding: 16px;
+        }
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+        .sub {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        label {
+            font-weight: lighter;
+        }
+        h1 {
+            text-align: center;
+            font-weight: bold;
+        }
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+        }
+        @keyframes my_animation {
+            0% {
+                background-position: 0% 0%;
+            }
+            25% {
+                background-position: 25% 25%;
+            }
+            50% {
+                background-position: 50% 50%;
+            }
+            75% {
+                background-position: 75% 75%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+    </style>
+</head>
+<body class="stApp">
+    <header></header>
+    <main>
+        <form action="">
+            <form action="action_page.php" method="post">
+                <div class="container">
+                    <h1>Sign in</h1>
+                    <label for="uname"><b>Username</b></label><br>
+                    <input type="text" placeholder="Enter Username" name="uname" required><br>
+                    <label for="psw"><b>Password</b></label><br>
+                    <input type="password" placeholder="Enter Password" name="psw" required><br>
+                    <button type="submit">Login</button><br>
+                    <label>
+                        <div class="sub">
+                            <input type="checkbox" checked="checked" name="remember"> Remember me
+                        </div>
+                    </label>
+                </div>
+            </form>
+        </form>
+    </main>
+    <script>
+        let currentPosition = { x: 0, y: 0 };
+
+        function getRandomPercentage() {
+            return Math.floor(Math.random() * 101);
+        }
+
+        function updateAnimation() {
+            const endX = getRandomPercentage();
+            const endY = getRandomPercentage();
+
+            const keyframes = `
+                @keyframes my_animation {
+                    0% {
+                        background-position: ${currentPosition.x}% ${currentPosition.y}%;
+                    }
+                    100% {
+                        background-position: ${endX}% ${endY}%;
+                    }
+                }
+            `;
+            currentPosition = { x: endX, y: endY };
+
+            const styleSheet = document.createElement("style");
+            styleSheet.type = "text/css";
+            styleSheet.innerText = keyframes;
+            document.head.appendChild(styleSheet);
+        }
+
+        setInterval(updateAnimation, 20000); // Update every 20 seconds
+        updateAnimation(); // Initial call to set the first animation
+    </script>
+</body>
+</html>
